@@ -10,26 +10,20 @@ module.exports = async ({ getNamedAccounts, deployments }) => {
         : VERIFICATION_BLOCK_CONFIRMATIONS
 
     log("----------------------------------------------------")
-    const args = []
-    const basicNft = await deploy("BasicNft", {
+    const args = ["VampireWeekend", "VW"]
+    const VampireWeekendTickets = await deploy("VampireWeekendTickets", {
         from: deployer,
         args: args,
         log: true,
         waitConfirmations: waitBlockConfirmations,
     })
 
-    const basicNftTwo = await deploy("BasicNftTwo", {
-        from: deployer,
-        args: args,
-        log: true,
-        waitConfirmations: waitBlockConfirmations,
-    })
+
 
     // Verify the deployment
     if (!developmentChains.includes(network.name) && process.env.ETHERSCAN_API_KEY) {
         log("Verifying...")
-        await verify(basicNft.address, args)
-        await verify(basicNftTwo.address, args)
+        await verify(VampireWeekendTickets.address, args)
     }
     log("----------------------------------------------------")
 }
